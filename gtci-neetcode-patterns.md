@@ -1,6 +1,13 @@
 # Grokking Technical Interview Patterns - Study sheet
 
-## 1. Two Pointers
+## 1. Arrays and hashing
+
+### Pattern - use a set to collect uniques/best-so-far
+### Pattern - use a hashmap to store index/value pairs
+### Pattern - pre-calculate and adjust components as you go
+
+
+## 2. Two Pointers
 
 Use for problems involving arrays or linked lists where you need to find pairs that meet certain criteria.
 
@@ -28,7 +35,7 @@ def two_pointers(arr, target):
 * [680 - Valid Palindrome II](https://leetcode.com/problems/valid-palindrome-ii/)
 
 
-## 2. Fast and Slow Pointers
+## 1. Fast and Slow Pointers
 
 Use for problems involving cycles in linked lists or arrays.
 
@@ -53,7 +60,7 @@ def has_cycle(head):
 * [234 - Palindrome Linked List](https://leetcode.com/problems/palindrome-linked-list/)
 
 
-## 3. Sliding Window
+## 1. Sliding Window
 
 Use for problems involving arrays or strings where you need to find a subarray or substring that meets certain conditions.
 
@@ -79,7 +86,7 @@ def sliding_window(arr, k):
 * [121 - Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/)
 
 
-## 4. Merge Intervals
+## 1. Merge Intervals
 
 Use for problems involving intervals or ranges.
 
@@ -105,7 +112,7 @@ def merge_intervals(intervals):
 * [253 - Meeting Rooms II](https://leetcode.com/problems/meeting-rooms-ii/)
 
 
-## 5. In-Place Manipulation of a Linked List
+## 1. In-Place Manipulation of a Linked List
 
 Use for problems where you need to reverse a portion or the entirety of a linked list without using extra space. Common scenarios include reversing the entire list, reversing sublists, or rearranging the nodes in a specific order.
 
@@ -155,7 +162,7 @@ def reverse_sublist(head, p, q):
 * [24 - Swap Nodes in Pairs](https://leetcode.com/problems/swap-nodes-in-pairs/)
 
 
-## 6. Two Heaps
+## 1. Two Heaps
 
 Use for problems involving balancing two halves of data, often to find medians efficiently, as finding the median of a data stream.
 
@@ -193,7 +200,7 @@ class MedianOfAStream:
 * [621 - Task Scheduler](https://leetcode.com/problems/task-scheduler/)
 
 
-## 7. K-way Merge
+## 1. K-way Merge
 
 Use for problems involving merging multiple sorted arrays or lists.
 
@@ -221,7 +228,7 @@ def merge_k_sorted_lists(lists):
 * [378 - Kth Smallest Element in a Sorted Matrix](https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/)
 
 
-## 8. Top K Elements
+## 1. Top K Elements
 
 Use for problems involving finding the top K elements in a dataset, often using heaps
 
@@ -247,7 +254,7 @@ def find_k_largest(nums, k):
 * [692 - Top K Frequent Words](https://leetcode.com/problems/top-k-frequent-words/)
 
 
-## 9. Modified Binary Search
+## 1. Modified Binary Search
 
 Use for problems involving searching in sorted arrays with modifications.
 
@@ -543,12 +550,15 @@ def mono_stack(insert_entries):
 Use for any problem where you need to explore all nodes and edges in a depth-first manner.
 
 ```python
-def dfs(root, visited):
-    for neighbor in get_neighbors(root):
-        if neighbor in visited:
-            continue
-        visited.add(neighbor)
-        dfs(neighbor, visited)
+def dfs(graph, start):
+    visited = set()
+    def traverse(node):
+        if node not in visited:
+            visited.add(node)
+            for neighbor in graph[node]:
+                traverse(neighbor)
+    traverse(start)
+    return visited
 ```
 
 ### Practice problems
@@ -565,16 +575,17 @@ def dfs(root, visited):
 Use for any problem where you need to explore all nodes and edges in a breadth-first manner.
 
 ```python
-def bfs(root):
-    queue = deque([root])
-    visited = set([root])
-    while len(queue) > 0:
+from collections import deque
+
+def bfs(graph, start):
+    visited = set()
+    queue = deque([start])
+    while queue:
         node = queue.popleft()
-        for neighbor in get_neighbors(node):
-            if neighbor in visited:
-                continue
-            queue.append(neighbor)
-            visited.add(neighbor)
+        if node not in visited:
+            visited.add(node)
+            queue.extend(graph[node])
+    return visited
 ```
 
 ### Practice problems
