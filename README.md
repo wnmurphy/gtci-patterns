@@ -1,1 +1,0 @@
-# gtci-patterns
