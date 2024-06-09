@@ -26,3 +26,16 @@ Topic - Advanced graphs
 Topic - DP, 2-d
 Topic - Bit manipulation
 Topic - Math + geometry
+
+
+
+[https://www.youtube.com/watch?v=xo7XrRVxH8Y]
+80% of LeetCode problems can be solved by:
+  2 pointer
+  Binary Tree BFS
+  Topological Sort
+  Binary Tree DFS
+  Top K Elements
+  Modified Binary Search
+  Subset
+  Sliding window
